@@ -1,9 +1,15 @@
 package com.example.pbas.PBAS.jwt_config;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import com.example.pbas.PBAS.entity.Role;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -20,7 +26,7 @@ public class JwtUtils {
 	@Autowired
 	private JwtConfig jwtConfig;
 
-	public String generateToken(String userId, String roles) {
+	public String generateToken(String userId, List<Role> roles) {
 		var now = new Date();
 		var expiryDate = new Date(now.getTime() + jwtConfig.getExpirationTime());
 
@@ -70,5 +76,19 @@ public class JwtUtils {
 	public String getUsernameFromToken(String token) {
 		var claims = Jwts.parser().setSigningKey(jwtConfig.getSecretKey()).parseClaimsJws(token).getBody();
 		return claims.getSubject();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	public Long getUserIdFromToken(String token) {
+		Claims claims = Jwts.parser()
+				.setSigningKey(jwtConfig.getSecretKey())
+				.parseClaimsJws(token)
+				.getBody();
+
+		return Long.parseLong(claims.getSubject());
 	}
 }

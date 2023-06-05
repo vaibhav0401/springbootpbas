@@ -1,33 +1,28 @@
 package com.example.pbas.PBAS.entity;
 
-import java.util.List;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import java.util.Set;
 
 @Entity
+@Table(name= "role")
 public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "name", unique = true)
 	private String name;
+
+	@Column(name = "description")
+
 	private String description;
 
-	@ManyToMany
-	private List<Permission> permissions;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name="permission_id")
+	private Set<Permission> permission;
 
 	public String getName() {
 		return name;
@@ -45,11 +40,20 @@ public class Role {
 		this.description = description;
 	}
 
-	public List<Permission> getPermissions() {
-		return permissions;
+
+	public Set<Permission> getPermission() {
+		return permission;
 	}
 
-	public void setPermissions(List<Permission> permissions) {
-		this.permissions = permissions;
+	public void setPermission(Set<Permission> permission) {
+		this.permission = permission;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
