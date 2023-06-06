@@ -8,6 +8,8 @@ import com.example.pbas.PBAS.jwt.JwtUtils;
 import com.example.pbas.PBAS.repository.PermissionRepository;
 import com.example.pbas.PBAS.repository.RoleRepository;
 import com.example.pbas.PBAS.repository.UserRepository;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +40,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	private JwtUtils jwtUtils;
 
 	private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
+	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
 
 	@Override
 	public UserDetails loadUserByUsername(String username) {
@@ -71,7 +78,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		}
 
 		userRepository.save(user);
-		logger.info("User {} registered successfully",user);
+		logger.info("User {} registered successfully",gson.toJson(user));
 		return new Response("User registered successfully", 200 , "");
 
 
