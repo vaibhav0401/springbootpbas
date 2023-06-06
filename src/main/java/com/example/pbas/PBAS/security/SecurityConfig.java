@@ -1,7 +1,7 @@
 package com.example.pbas.PBAS.security;
 
-import com.example.pbas.PBAS.jwt_config.JwtAuthenticationFilter;
-import com.example.pbas.PBAS.jwt_config.JwtUtils;
+import com.example.pbas.PBAS.jwt.JwtAuthenticationFilter;
+import com.example.pbas.PBAS.jwt.JwtUtils;
 import com.example.pbas.PBAS.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -25,11 +25,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserServiceImpl userServiceImpl;
+
+	private static final String[] AUTH_WHITELIST = {
+			"/api/register",
+			"/api/login"
+	};
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 			.authorizeRequests()
-			.antMatchers("/api/register", "/api/login").permitAll()
+			.antMatchers(AUTH_WHITELIST).permitAll()
 			.antMatchers("/api/public").permitAll()
 			.anyRequest().authenticated()// Require authentication
 			.and()
@@ -42,5 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		var passwordEncoder = jwtUtils.passwordEncoder();
 		auth.userDetailsService(userServiceImpl).passwordEncoder(passwordEncoder);
 	}
+
+
 
 }

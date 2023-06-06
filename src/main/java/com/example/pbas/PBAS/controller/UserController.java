@@ -17,7 +17,6 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@RequestBody UserRegistrationDto registrationDto) {
 		var response = userService.registerUser(registrationDto);
@@ -42,7 +41,6 @@ public class UserController {
 	public String privateUserApi() {
 		return "Private User API accessed";
 	}
-
 
 	@GetMapping("/private/admin")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

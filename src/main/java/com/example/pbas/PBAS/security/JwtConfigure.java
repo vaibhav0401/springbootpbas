@@ -7,11 +7,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.example.pbas.PBAS.jwt_config.JwtAuthenticationFilter;
-import com.example.pbas.PBAS.jwt_config.JwtUtils;
+import com.example.pbas.PBAS.jwt.JwtAuthenticationFilter;
+import com.example.pbas.PBAS.jwt.JwtUtils;
 
 @Configuration
-public class JwtConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+public class JwtConfigure extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
 @Autowired
 private JwtUtils jwtUtils;

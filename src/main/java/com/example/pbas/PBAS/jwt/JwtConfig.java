@@ -1,4 +1,4 @@
-package com.example.pbas.PBAS.jwt_config;
+package com.example.pbas.PBAS.jwt;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -6,19 +6,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JwtConfig {
 
-	@Value("${jwt.secretKey}")
+	@Value("${jwt.secret.key}")
 	private String secretKey;
 
-	@Value("${jwt.expirationTime}")
+	@Value("${jwt.expiration.time}")
 	private long expirationTime;
 
-	@Value("${jwt.tokenPrefix}")
+	@Value("${jwt.token.prefix}")
 	private String tokenPrefix;
 
-	@Value("${jwt.tokenHeader}")
+	@Value("${jwt.token.header}")
 	private String tokenHeader;
 
-	@Value("${jwt.tokenEndpoint}")
+	@Value("${jwt.token.endpoint}")
 	private String tokenEndpoint;
 
 	public String getSecretKey() {

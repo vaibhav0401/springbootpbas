@@ -1,4 +1,4 @@
-package com.example.pbas.PBAS.jwt_config;
+package com.example.pbas.PBAS.jwt;
 
 import com.example.pbas.PBAS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.example.pbas.PBAS.jwt_config;
+package com.example.pbas.PBAS.jwt;
 
 import java.util.Date;
 import java.util.List;
